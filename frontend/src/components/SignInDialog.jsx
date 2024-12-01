@@ -2,29 +2,34 @@ import React from 'react';
 import DialogLayout from './Dialog/DailogLayout';
 import FormInput from './Dialog/Form/FormInput';
 
-export default function SignInDialog({ isOpen, onClose }) {
+export default function SignInDialog({ isOpen, setUserData, userData, setIsSignInOpen, setSignInClick }) {
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
+
+    setSignInClick(true);
   };
 
   return (
     <DialogLayout
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={() => setIsSignInOpen(false)}
       title="Sign in to your Account"
     >
       <form className="space-y-6" onSubmit={handleSubmit}>
         <FormInput
-          label="Username"
-          id="username"
-          placeholder="Username Or Email ID"
+          label="Email address"
+          id="email"
+          placeholder="Email address"
+          setUserData={setUserData}
+          userData={userData}
         />
         <FormInput
           label="Password"
           id="password"
           type="password"
           placeholder="Password"
+          setUserData={setUserData}
+          userData={userData}
         />
 
         <div className="flex items-center justify-between">
@@ -38,7 +43,7 @@ export default function SignInDialog({ isOpen, onClose }) {
               Remember me for 30 Days
             </label>
           </div>
-          <button type="button" className="text-sm font-medium text-black hover:text-gray-700">
+          <button type="button" className="text-sm font-medium text-black hover:text-gray-700" onClick={() => {}}>
             Forgot Password
           </button>
         </div>
@@ -51,11 +56,11 @@ export default function SignInDialog({ isOpen, onClose }) {
         </button>
 
         <div className="text-center text-sm">
-          <span className="text-gray-600">Don't have an account? </span>
+          <span className="text-gray-600">{"Don't have an account?"} </span>
           <button 
             type="button" 
             className="font-medium text-black hover:text-gray-700"
-            onClick={onClose}
+            onClick={() => setIsSignInOpen(false)}
           >
             Login
           </button>
